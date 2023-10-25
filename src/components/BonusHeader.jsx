@@ -1,13 +1,11 @@
-import { useGame } from "../Contexts/GameContext";
+import { useBonus } from "../Contexts/GameBonusContext";
+import Logo from "/logo-bonus.svg";
 
-function Header() {
-  const { score } = useGame();
-
+function BonusHeader() {
+  const { score } = useBonus();
   return (
-    <header className="flex items-center py-8 px-10 justify-between border-[3px] border-border-color rounded-3xl max-w-[70rem] w-full mid:px-6">
-      <div>
-        <img src="/logo.svg" alt="logo" />
-      </div>
+    <header className="flex items-center py-8 px-10 justify-between border-[3px] border-border-color rounded-3xl max-w-[70rem] w-full">
+      <img src={Logo} alt="logo" />
       <div className="bg-score py-6 px-20 rounded-[0.8rem] shadow-box-sh flex flex-col items-center max:py-4 max:px-10">
         <p className="text-blue uppercase text-[1.6rem] font-semibold tracking-[0.25rem] max:text-[1.4rem]">
           Score
@@ -20,4 +18,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default BonusHeader;

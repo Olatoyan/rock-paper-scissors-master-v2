@@ -1,14 +1,28 @@
+import { useBonus } from "../Contexts/GameBonusContext";
 import { useGame } from "../Contexts/GameContext";
 
 function Decision() {
   const { winner, dispatch } = useGame();
-
-  const player = winner === "player";
-  const computer = winner === "computer";
-  const draw = winner === "draw";
+  const { dispatch: bonusDispatch, winner: bonusWinner } = useBonus();
 
   function playAgain() {
-    dispatch({ type: "playAgain" });
+    if (location.pathname === "/bonus") {
+      bonusDispatch({ type: "playAgain" });
+    } else {
+      dispatch({ type: "playAgain" });
+    }
+  }
+
+  let player, computer, draw;
+
+  if (location.pathname === "/bonus") {
+    player = bonusWinner === "player";
+    computer = bonusWinner === "computer";
+    draw = bonusWinner === "draw";
+  } else {
+    player = winner === "player";
+    computer = winner === "computer";
+    draw = winner === "draw";
   }
 
   return (

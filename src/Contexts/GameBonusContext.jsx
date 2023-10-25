@@ -1,16 +1,14 @@
-import { useContext, useEffect } from "react";
-import { useReducer } from "react";
-import { createContext } from "react";
+import { createContext, useContext, useReducer } from "react";
 
-const GameContext = createContext();
+const BonusContext = createContext();
 
 const initialState = {
-  score: 0,
+  played: "start",
+  isRuleOpened: false,
   playerChoice: null,
   computerChoice: null,
-  played: "start",
   winner: null,
-  isRuleOpened: false,
+  score: 0,
 };
 
 function reducer(state, action) {
@@ -29,42 +27,42 @@ function reducer(state, action) {
       return { ...initialState, score: state.score };
     case "setIsRuleOpened":
       return { ...state, isRuleOpened: action.payload };
-    case "resetGame":
-      return initialState;
+      case 'resetGame': 
+      return initialState
     default:
       throw new Error("Invalid action type");
   }
 }
 
-function GameProvider({ children }) {
+function BonusProvider({ children }) {
   const [
-    { score, playerChoice, played, computerChoice, winner, isRuleOpened },
+    { played, isRuleOpened, playerChoice, computerChoice, winner, score },
     dispatch,
   ] = useReducer(reducer, initialState);
 
   return (
-    <GameContext.Provider
+    <BonusContext.Provider
       value={{
-        score,
-        playerChoice,
         played,
+        isRuleOpened,
+        playerChoice,
         computerChoice,
         winner,
-        isRuleOpened,
+        score,
         dispatch,
       }}
     >
       {children}
-    </GameContext.Provider>
+    </BonusContext.Provider>
   );
 }
 
-function useGame() {
-  const context = useContext(GameContext);
+function useBonus() {
+  const context = useContext(BonusContext);
   if (context === undefined) {
-    throw new Error("useGame must be used within a GameProvider");
+    throw new Error("useBonus must be used within a BonusProvider");
   }
   return context;
 }
 
-export { GameProvider, useGame };
+export { BonusProvider, useBonus };

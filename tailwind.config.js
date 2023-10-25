@@ -16,6 +16,7 @@ export default {
           "radial-gradient(134.34% 134.34% at 50% 0%, #1F3757 0%, #131537 100%);",
         score: "linear-gradient(0deg, #F3F3F3 0%, #FFF 100%)",
         triangle: 'url("/bg-triangle.svg")',
+        pentagon: 'url("/bg-pentagon.svg")',
         "hover-bg": 'url("/bg-hover.svg")',
       },
       dropShadow: {
@@ -29,6 +30,7 @@ export default {
       },
       screens: {
         max: { max: "56.25em" },
+        mid: { max: "37.5em" },
         sma: { max: "28.75em" },
       },
     },

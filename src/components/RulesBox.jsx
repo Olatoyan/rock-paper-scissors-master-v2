@@ -1,12 +1,18 @@
+import { useBonus } from "../Contexts/GameBonusContext";
 import { useGame } from "../Contexts/GameContext";
 import Close from "/icon-close.svg";
 import Rules from "/image-rules.svg";
 
 function RulesBox() {
   const { dispatch } = useGame();
+  const { dispatch: bonusDispatch } = useBonus();
 
   function handleRuleClose() {
-    dispatch({ type: "setIsRuleOpened", payload: false });
+    if (location.pathname === "/bonus") {
+      bonusDispatch({ type: "setIsRuleOpened", payload: false });
+    } else {
+      dispatch({ type: "setIsRuleOpened", payload: false });
+    }
   }
 
   return (
