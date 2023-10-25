@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 const BonusContext = createContext();
 
@@ -14,7 +14,12 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "setScore":
-      return { ...state, score: state.score + action.payload };
+      const newScore = state.score + action.payload;
+      const updatedScore = newScore < 0 ? 0 : newScore;
+      return {
+        ...state,
+        score: updatedScore,
+      };
     case "setPlayerChoice":
       return { ...state, playerChoice: action.payload };
     case "setComputerChoice":
@@ -27,8 +32,8 @@ function reducer(state, action) {
       return { ...initialState, score: state.score };
     case "setIsRuleOpened":
       return { ...state, isRuleOpened: action.payload };
-      case 'resetGame': 
-      return initialState
+    case "resetGame":
+      return { ...initialState, score: state.score };
     default:
       throw new Error("Invalid action type");
   }
@@ -39,6 +44,17 @@ function BonusProvider({ children }) {
     { played, isRuleOpened, playerChoice, computerChoice, winner, score },
     dispatch,
   ] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const savedScore = localStorage.getItem("score");
+    if (savedScore) {
+      dispatch({ type: "setScore", payload: parseInt(savedScore) });
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("score", score.toString());
+  }, [score]);
 
   return (
     <BonusContext.Provider

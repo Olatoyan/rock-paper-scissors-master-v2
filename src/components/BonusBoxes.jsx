@@ -54,6 +54,7 @@ function BonusBoxes() {
           newWinner = "draw";
         } else {
           newWinner = "computer";
+          dispatch({ type: "setScore", payload: -1 });
         }
 
         dispatch({ type: "setWinner", payload: newWinner });
