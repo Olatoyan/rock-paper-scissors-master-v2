@@ -5,9 +5,6 @@ import Decision from "./Decision";
 import Paper from "/icon-paper.svg";
 import Rock from "/icon-rock.svg";
 import Scissors from "/icon-scissors.svg";
-import PaperSmall from "/icon-paper-small.svg";
-import RockSmall from "/icon-rock-small.svg";
-import ScissorsSmall from "/icon-scissors-small.svg";
 
 function ChooseBoxes() {
   const { playerChoice, computerChoice, dispatch, winner } = useGame();
@@ -20,22 +17,13 @@ function ChooseBoxes() {
       setTimeout(() => {
         let newWinner = null;
 
-        if (
-          (playerChoice === Rock || playerChoice === RockSmall) &&
-          (computerChoice === Scissors || computerChoice === ScissorsSmall)
-        ) {
+        if (playerChoice === Rock && computerChoice === Scissors) {
           newWinner = "player";
           dispatch({ type: "setScore", payload: 1 });
-        } else if (
-          (playerChoice === Scissors || playerChoice === ScissorsSmall) &&
-          (computerChoice === Paper || computerChoice === PaperSmall)
-        ) {
+        } else if (playerChoice === Scissors && computerChoice === Paper) {
           newWinner = "player";
           dispatch({ type: "setScore", payload: 1 });
-        } else if (
-          (playerChoice === Paper || playerChoice === PaperSmall) &&
-          (computerChoice === Rock || computerChoice === RockSmall)
-        ) {
+        } else if (playerChoice === Paper && computerChoice === Rock) {
           newWinner = "player";
           dispatch({ type: "setScore", payload: 1 });
         } else if (playerChoice === computerChoice) {

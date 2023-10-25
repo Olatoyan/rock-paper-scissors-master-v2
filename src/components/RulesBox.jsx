@@ -2,6 +2,7 @@ import { useBonus } from "../Contexts/GameBonusContext";
 import { useGame } from "../Contexts/GameContext";
 import Close from "/icon-close.svg";
 import Rules from "/image-rules.svg";
+import RulesBonus from "/image-rules-bonus.svg";
 
 function RulesBox() {
   const { dispatch } = useGame();
@@ -33,7 +34,11 @@ function RulesBox() {
             className="cursor-pointer"
           />
         </div>
-        <img src={Rules} alt="rules" />
+        {location.pathname === "/bonus" ? (
+          <img src={RulesBonus} alt="rules bonus" />
+        ) : (
+          <img src={Rules} alt="rules" />
+        )}
       </div>
     </div>
   );
